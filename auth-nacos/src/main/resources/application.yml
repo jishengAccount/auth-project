@@ -1,0 +1,22 @@
+#服务配置
+server:
+  port: 8002
+#spring配置
+spring:
+  #1.应用配置
+  application:
+    name: auth-nacos #指定服务名
+  #2.数据库连接池
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/myproject?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: jisheng
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.59.1:8848
+mybatis-plus:
+  global-config:
+    db-config:
+      id-type: id_worker_str

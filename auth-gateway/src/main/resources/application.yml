@@ -1,0 +1,28 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: auth-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-nacos
+          uri: lb://auth-nacos #负载均衡的写法
+          predicates:
+            - Path=/consumer/**
+          filters:
+            - Auth
+            - RewritePath= /consumer/(?<segment>.*),/$\{segment} #重写路径过滤器将/consumer/**开头的替换为/**
+        - id: auth-web
+          uri: lb://auth-web #http://127.0.0.1:8001
+          predicates:
+            - Path=/provider/**
+          filters:
+            - RewritePath= /provider/(?<segment>.*),/$\{segment}  #重写路径过滤器将/provider/**开头的替换为/**
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+jwt:
+  config:
+    signKey: ss
+    cookieName: auth

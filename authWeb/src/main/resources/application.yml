@@ -1,0 +1,42 @@
+#服务配置
+server:
+  port: 8001
+#spring配置
+spring:
+  #1.应用配置
+  application:
+    name: auth-web #指定服务名
+  #2.数据库连接池
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/myproject?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: jisheng
+  #注册中心
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.59.1:8848
+  redis:
+    host: 192.168.59.11
+  rabbitmq:
+    host: 192.168.59.11
+    username: guest
+    password: guest
+    virtual-host: /
+#  #3.JPA
+#  jpa:
+#    database: MySQL
+#    show-sql: true
+#    open-in-view: true
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml  # 读取映射文件
+  global-config:
+    db-config:
+      id-type: id_worker_str  # 主键生成策略默认使用数据库自增
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印日志文件
+jwt:
+  config:
+    signKey: jishengSign
+    expirDate: 1000000
